@@ -1,31 +1,45 @@
 package com.example.jpa.models;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="contactos")
 public class ContactoModel {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, length = 100)
     private String nombre;
+    @Column(length = 100)
     private String apellido;
+    @Column(length = 20)
     private String telefono;
+    @Column(length = 100)
     private String email;
-    private int idCategoria;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private CategoriaModel categoria;
 
     public ContactoModel() {
     }
 
-    public ContactoModel(int id, String nombre, String apellido, String telefono, String email, int idCategoria) {
+    public ContactoModel(Long id, String nombre, String apellido, String telefono, String email, CategoriaModel categoria) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.email = email;
-        this.idCategoria = idCategoria;
+        this.categoria = categoria;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,11 +75,11 @@ public class ContactoModel {
         this.email = email;
     }
 
-    public int getIdCategoria() {
-        return idCategoria;
+    public CategoriaModel getCategoria() {
+        return categoria;
     }
 
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setCategoria(CategoriaModel categoria) {
+        this.categoria = categoria;
     }
 }
